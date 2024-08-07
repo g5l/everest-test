@@ -1,0 +1,33 @@
+.todoApp {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.todoForm {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.todoInput {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.todoList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.todoItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.checkedTodo {
+  text-decoration: line-through;
+  color: #888;
+}

@@ -1,14 +1,14 @@
-import everestLogo from '/everest-logo.svg'
+import Home from '@/pages/Home/Home'
+import { theme } from '@/theme.ts'
+import { MantineProvider } from '@mantine/core'
 import { FC } from 'react'
-import './App.css'
+import '@mantine/core/styles.css'
 
 const App: FC = () => {
   return (
-    <div className="everest-app">
-      <img className="everest-app__logo" src={everestLogo} alt="Everest logo" />
-      <h1 className="everest-app__title">TODO App Challenge</h1>
-      <p className="everest-app__docs">Read the instructions to get started!</p>
-    </div>
+    <MantineProvider theme={theme}>
+      <Home />
+    </MantineProvider>
   )
 }
 
