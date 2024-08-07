@@ -1,0 +1,9 @@
+.form {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.input {
+  flex-grow: 1;
+  margin-right: 10px;
+}

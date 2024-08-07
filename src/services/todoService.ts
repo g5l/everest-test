@@ -11,7 +11,8 @@ const API_URL =
 export const fetchInitialTodos = async (): Promise<TodoList> => {
   try {
     const response = await axios.get<TodoList>(API_URL)
-    return response.data.filter(isValidTodoEntry)
+    const todos = response.data.todos || []
+    return todos.filter(isValidTodoEntry)
   } catch (error) {
     console.error('Error fetching initial todos:', error)
     return []
