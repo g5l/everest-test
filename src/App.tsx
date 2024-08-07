@@ -1,4 +1,4 @@
-import Home from '@/pages/Home/Home'
+import Home from '@/pages/Home'
 import { theme } from '@/theme.ts'
 import { MantineProvider } from '@mantine/core'
 import { FC } from 'react'
