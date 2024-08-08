@@ -1,18 +1,29 @@
 import HeaderForm from '@/components/HeaderForm'
 import TodoList from '@/components/TodoList'
 import { useTodoList } from '@/hooks/useTodoList'
-import { Box } from '@mantine/core'
+import { Box, Container } from '@mantine/core'
 import React, { FC } from 'react'
 import styles from './styles.module.css'
 
 const Index: FC = () => {
-  const { todos, addTodo, removeTodo, toggleTodo } = useTodoList()
+  const { todos, isLoading, addTodo, removeTodo, toggleTodo } = useTodoList()
 
   return (
-    <Box className={styles.container}>
-      <HeaderForm onAdd={addTodo} />
-      <TodoList todos={todos} onRemove={removeTodo} onToggle={toggleTodo} />
-    </Box>
+    <div className={styles.container}>
+      <Box className={styles.header}>
+        <Container className={styles.headerForm} size="xs">
+          <HeaderForm onAdd={addTodo} />
+        </Container>
+      </Box>
+      <Container size="xs">
+        <TodoList
+          todos={todos}
+          onRemove={removeTodo}
+          onToggle={toggleTodo}
+          isLoading={isLoading}
+        />
+      </Container>
+    </div>
   )
 }
 

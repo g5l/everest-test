@@ -1,0 +1,21 @@
+.list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.checkbox {
+  cursor: pointer;
+}
+
+.checked {
+  text-decoration: line-through;
+  color: #888;
+}
