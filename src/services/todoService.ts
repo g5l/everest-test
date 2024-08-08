@@ -1,22 +1,24 @@
+import { fetchTodos } from '@/api/todoApi.ts'
 import { TodoEntry, TodoList } from '@/types/todo'
-import axios from 'axios'
+
+const LOCAL_STORAGE_KEY = 'todoList'
 
 type UnknownTodoEntry = {
   [K in keyof TodoEntry]: unknown
 }
 
-const API_URL =
-  'https://everest-interview-public-files.s3.amazonaws.com/input.json'
+export const getTodos = async (): Promise<TodoList> => {
+  let storedTodos = localStorage.getItem(LOCAL_STORAGE_KEY)
+  storedTodos = JSON.parse(storedTodos)
+  if (storedTodos.length > 0) return storedTodos
 
-export const fetchInitialTodos = async (): Promise<TodoList> => {
-  try {
-    const response = await axios.get<TodoList>(API_URL)
-    const todos = response.data.todos || []
-    return todos.filter(isValidTodoEntry)
-  } catch (error) {
-    console.error('Error fetching initial todos:', error)
-    return []
-  }
+  const response = await fetchTodos()
+  const todos = response.data || []
+  return todos.filter(isValidTodoEntry)
+}
+
+export const updateTodos = (todos: TodoList) => {
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos))
 }
 
 const isValidTodoEntry = (entry: UnknownTodoEntry): entry is TodoEntry => {
