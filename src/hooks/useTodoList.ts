@@ -1,25 +1,22 @@
 import { useEffect, useState } from 'react'
-import { fetchInitialTodos } from '../services/todoService'
+import { getTodos, updateTodos } from '../services/todoService'
 import { TodoEntry, TodoList } from '../types/todo'
 
-const LOCAL_STORAGE_KEY = 'todoList'
-
 export const useTodoList = () => {
-  const [todos, setTodos] = useState<TodoList>(() => {
-    const storedTodos = localStorage.getItem(LOCAL_STORAGE_KEY)
-    return storedTodos ? JSON.parse(storedTodos) : []
-  })
+  const [todos, setTodos] = useState<TodoList>([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const loadInitialTodos = async () => {
-      const initialTodos = await fetchInitialTodos()
+      const initialTodos = await getTodos()
       setTodos(initialTodos)
+      setIsLoading(false)
     }
     loadInitialTodos()
   }, [])
 
   useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos))
+    updateTodos(todos)
   }, [todos])
 
   const addTodo = (content: string) => {
@@ -48,5 +45,5 @@ export const useTodoList = () => {
     return a.checked ? 1 : -1
   })
 
-  return { todos: sortedTodos, addTodo, removeTodo, toggleTodo }
+  return { todos: sortedTodos, isLoading, addTodo, removeTodo, toggleTodo }
 }
