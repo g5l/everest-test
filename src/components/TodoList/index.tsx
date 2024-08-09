@@ -9,7 +9,8 @@ import {
   Text
 } from '@mantine/core'
 import { IconTrash } from '@tabler/icons-react'
-import React, { FC } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import React, { FC, KeyboardEvent, useRef } from 'react'
 import styles from './styles.module.css'
 
 export type TodoListProps = {
@@ -25,6 +26,8 @@ const TodoList: FC<TodoListProps> = ({
   onRemove,
   onToggle
 }) => {
+  const todoRefs = useRef<(HTMLLIElement | null)[]>([])
+
   const removeTodo = (id: number) => {
     onRemove(id)
   }
@@ -56,29 +59,67 @@ const TodoList: FC<TodoListProps> = ({
     )
   }
 
+  const handleKeyDown = (e: KeyboardEvent<HTMLLIElement>, index: number) => {
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault()
+        if (index < todos.length - 1) {
+          todoRefs.current[index + 1]?.focus()
+        }
+        break
+      case 'ArrowUp':
+        e.preventDefault()
+        if (index > 0) {
+          todoRefs.current[index - 1]?.focus()
+        }
+        break
+      case 'Enter':
+        toggleTodo(todos[index].id)
+        break
+      case 'Delete':
+        removeTodo(todos[index].id)
+        break
+    }
+  }
+
   return (
-    <ul className={styles.list}>
-      {todos.map((todo) => (
-        <li key={todo.id} className={styles.item}>
-          <Checkbox
-            checked={todo.checked}
-            onChange={() => toggleTodo(todo.id)}
-            label={
-              <Text className={todo.checked ? styles.checked : ''}>
-                {todo.content}
-              </Text>
-            }
-          />
-          <Button
-            onClick={() => removeTodo(todo.id)}
-            color="red"
-            title="Delete"
+    <motion.ul className={styles.list} role="list">
+      <AnimatePresence>
+        {todos.map((todo, index) => (
+          <motion.li
+            key={todo.id}
+            className={styles.item}
+            ref={(el) => (todoRefs.current[index] = el)}
+            tabIndex={0}
+            role="listitem"
+            onKeyDown={(e) => handleKeyDown(e, index)}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.4 }}
+            layout
           >
-            <IconTrash />
-          </Button>
-        </li>
-      ))}
-    </ul>
+            <Checkbox
+              checked={todo.checked}
+              onChange={() => toggleTodo(todo.id)}
+              label={
+                <Text className={todo.checked ? styles.checked : ''}>
+                  {todo.content}
+                </Text>
+              }
+              aria-label={`Mark "${todo.content}" as ${todo.checked ? 'uncompleted' : 'completed'}`}
+            />
+            <Button
+              onClick={() => removeTodo(todo.id)}
+              color="red"
+              title="Delete"
+            >
+              <IconTrash />
+            </Button>
+          </motion.li>
+        ))}
+      </AnimatePresence>
+    </motion.ul>
   )
 }
 
