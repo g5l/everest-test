@@ -3,7 +3,7 @@ import styles from './styles.module.css'
 
 export type {{properCase name}}Props = {};
 
-const {{pascalCase name}}: FC = (props: {{properCase name}}Props) => (
+const {{pascalCase name}}: FC<{{properCase name}}Props> = (props) => (
   <div className={styles.main}>
     <h1>{{pascalCase name}}</h1>
   </div>
