@@ -1,5 +1,5 @@
 import Home from '@/pages/Home'
-import { theme } from '@/theme.ts'
+import { theme } from '@/theme'
 import { MantineProvider } from '@mantine/core'
 import { FC } from 'react'
 import '@mantine/core/styles.css'

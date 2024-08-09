@@ -33,7 +33,7 @@ const HeaderForm: FC<HeaderFormProps> = ({ onAdd }) => {
         className={styles.input}
       />
       <Button type="submit" disabled={isEmpty}>
-        Add
+        ADD
       </Button>
     </form>
   )
