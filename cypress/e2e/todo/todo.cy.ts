@@ -5,15 +5,14 @@ import {
 } from '../../selector/home'
 
 describe('Todo', () => {
-  before(() => {
-    cy.visit('/')
-    cy.wait(1000)
-    cy.saveStorage()
-  })
-
   beforeEach(() => {
     cy.visit('/')
     cy.loadStorage()
+    cy.wait(1000)
+  })
+
+  afterEach(() => {
+    cy.saveStorage()
   })
 
   const todoItem = 'Walk the dog'
@@ -21,11 +20,13 @@ describe('Todo', () => {
   it('Should add an item to the list', () => {
     cy.get(headerSelector.input).type(todoItem)
     cy.get(headerSelector.button).click()
+    cy.wait(1000)
     cy.get(listSelector.item).contains(todoItem)
   })
 
   it('Should search for a todo', () => {
     cy.get(filtersSelector.search).type(todoItem)
+    cy.wait(1000)
     cy.get(listSelector.item).contains(todoItem)
   })
 

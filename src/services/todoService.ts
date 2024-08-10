@@ -20,6 +20,7 @@ export const getTodos = async (): Promise<TodoList> => {
 }
 
 export const updateTodos = (todos: TodoList) => {
+  if (todos.length <= 0) return
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos))
 }
 
