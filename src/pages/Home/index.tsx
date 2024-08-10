@@ -7,7 +7,7 @@ import { useTodoList } from '@/hooks/useTodoList'
 import { filterTodos, getCompletedTodos } from '@/services/todoService'
 import { FilterStateType } from '@/types/filter'
 import { Box, Container } from '@mantine/core'
-import React, { FC, useMemo, useState } from 'react'
+import { FC, useMemo, useState } from 'react'
 import styles from './styles.module.css'
 
 const Index: FC = () => {

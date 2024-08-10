@@ -33,7 +33,12 @@ const HeaderForm: FC<HeaderFormProps> = ({ onAdd }) => {
         data-test="new-todo-input"
         className={styles.input}
       />
-      <Button type="submit" disabled={isEmpty} data-test="add-todo-button">
+      <Button
+        type="submit"
+        disabled={isEmpty}
+        color="green"
+        data-test="add-todo-button"
+      >
         ADD
       </Button>
     </form>

@@ -10,8 +10,20 @@ type UnknownTodoEntry = {
 }
 
 export const getTodos = async (): Promise<TodoList> => {
-  let storedTodos = localStorage.getItem(LOCAL_STORAGE_KEY)
-  storedTodos = JSON.parse(storedTodos) || []
+  const storedTodosString = localStorage.getItem(LOCAL_STORAGE_KEY)
+  let storedTodos: TodoList = []
+
+  if (storedTodosString) {
+    try {
+      const parsedTodos = JSON.parse(storedTodosString)
+      if (Array.isArray(parsedTodos) && parsedTodos.every(isValidTodoEntry)) {
+        storedTodos = parsedTodos
+      }
+    } catch (error) {
+      console.error('Error parsing stored todos:', error)
+    }
+  }
+
   if (storedTodos.length > 0) return storedTodos
 
   const response = await fetchTodos()

@@ -1,20 +1,39 @@
 import { TodoList } from '@/types/todo'
 import axios from 'axios'
 
-const API_URL =
-  'https://everest-interview-public-files.s3.amazonaws.com/input.json'
+const API_URL = import.meta.env.VITE_API_URL
 
-type ApiResponse = {
-  data: TodoList
-  error: null
+if (!API_URL) {
+  throw new Error('VITE_API_URL is not defined in the environment variables')
 }
 
-export const fetchTodos = async (): Promise<ApiResponse> => {
+type ApiResponse = {
+  todos: TodoList
+}
+
+type FetchTodosResult = {
+  data: TodoList
+  error: Error | null
+}
+
+export const fetchTodos = async (): Promise<FetchTodosResult> => {
   try {
-    const response = await axios.get<TodoList>(API_URL)
+    const response = await axios.get<ApiResponse>(API_URL)
     return { data: response.data.todos || [], error: null }
   } catch (error) {
     console.error('Error fetching todos:', error)
-    return { data: [], error: error }
+    if (axios.isAxiosError(error)) {
+      return {
+        data: [],
+        error: new Error(
+          error.message || 'An error occurred while fetching todos'
+        )
+      }
+    }
+    return {
+      data: [],
+      error:
+        error instanceof Error ? error : new Error('An unknown error occurred')
+    }
   }
 }

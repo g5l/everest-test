@@ -10,7 +10,7 @@ import {
 } from '@mantine/core'
 import { IconTrash } from '@tabler/icons-react'
 import { AnimatePresence, motion } from 'framer-motion'
-import React, { FC, KeyboardEvent, useRef } from 'react'
+import { FC, KeyboardEvent, useRef } from 'react'
 import styles from './styles.module.css'
 
 export type TodoListProps = {
@@ -37,9 +37,13 @@ const TodoList: FC<TodoListProps> = ({
   }
 
   if (isLoading) {
-    return Array.from({ length: 2 }).map((_, index) => (
-      <Skeleton key={index} height={54} mb={6} width="100%" radius="md" />
-    ))
+    return (
+      <>
+        {Array.from({ length: 2 }).map((_, index) => (
+          <Skeleton key={index} height={54} mb={6} width="100%" radius="md" />
+        ))}
+      </>
+    )
   }
 
   if (todos.length === 0) {
@@ -47,10 +51,14 @@ const TodoList: FC<TodoListProps> = ({
       <Center>
         <Container>
           <Stack align="center">
-            <Text size="xl" weight={500} data-test="empty-state">
+            <Text
+              size="xl"
+              className={styles.emptyTitle}
+              data-test="empty-state"
+            >
               No tasks found
             </Text>
-            <Text align="center">You have no tasks in your to-do list.</Text>
+            <Text>You have no tasks in your to-do list.</Text>
           </Stack>
         </Container>
       </Center>
