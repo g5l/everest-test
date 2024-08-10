@@ -54,7 +54,7 @@ Contains end-to-end (E2E) tests for the application. These tests simulate user i
 
 `generators/`
 
-Houses generator files used to automate the creation of components. This project uses Plop for code generation, which helps maintain consistency in component structure and boilerplate code.
+Generator files used to automate the creation of components. This project uses Plop for code generation.
 
 `src/`
 
@@ -62,22 +62,22 @@ The main source code directory for the application.
 
 `api/`: Contains modules for communicating with the server. This layer is responsible for making HTTP requests and handling responses, providing a clean interface for the service layer.
 
-`assets/`: Stores static files such as images, icons, and other media used in the application.
+`assets/`: Stores static files such as images.
 
-`components/`: Houses all reusable React components. Each component has its own directory with the following structure:
+`components/`: All reusable React components. Each component has its own directory with the following structure:
 
 * `index.tsx`: The main React component file containing the component's logic and JSX.
-* `stories.tsx`: Storybook file for documenting and showcasing the component in isolation.
-* `style.module.css`: CSS Module file for component-specific styles, ensuring style encapsulation.
+* `stories.tsx`: Storybook file for documenting and showcasing the component.
+* `style.module.css`: CSS Module file for component-specific styles.
 
-`constants/`: Contains TypeScript files defining constant values used throughout the application. This helps maintain consistency and makes it easier to update shared values.
+`constants/`: Files to defining constant values used throughout the application.
 
-`hooks/`: Custom React hooks that encapsulate reusable stateful logic, making it easier to share complex behavior across components.
+`hooks/`: Custom React hooks that encapsulate reusable stateful logic.
 
-`pages/`: Contains components that represent entire pages or views in the application. These components typically compose smaller components from the `components/` directory.
+`pages/`: Contains components that represent entire pages or views in the application.
 
-`services`/: The service layer acts as an intermediary between the API layer and the components. It's responsible for data transformation, business logic, and providing data in the format required by the components.
+`services/`: The service layer acts as an intermediary between the API layer and the components. It's responsible for data transformation, business logic, and providing data in the format required by the components.
 
-`types`/: Houses global TypeScript type definitions used across the application, promoting type safety and consistency.
+`types/`: Global TypeScript type definitions used across the application, promoting type safety and consistency.
 
-`util`/: Contains utility functions and helper modules that can be used across different parts of the application.
+`util/`: Contains utility functions and helper modules.
