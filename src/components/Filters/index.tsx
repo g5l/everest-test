@@ -1,7 +1,8 @@
+import FilterStatusButton from '@/components/FilterStatusButton'
 import { FilterStatusEnum } from '@/constants/filter'
 import { FilterStateType } from '@/types/filter'
 import { desktopSize } from '@/util/responsive'
-import { Button, Group, TextInput } from '@mantine/core'
+import { Group, TextInput } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
 import { IconSearch } from '@tabler/icons-react'
 import React, { FC } from 'react'
@@ -11,24 +12,6 @@ type FiltersProps = {
   filter: FilterStateType
   className?: string
   onFilterChange: (filter: FilterStateType) => void
-}
-
-type FilterButtonProps = {
-  isActive: boolean
-  onClick: () => void
-  children: React.ReactNode
-}
-
-const FilterButton: FC<FilterButtonProps> = ({
-  isActive,
-  onClick,
-  children
-}) => {
-  return (
-    <Button variant={isActive ? 'filled' : 'light'} onClick={onClick}>
-      {children}
-    </Button>
-  )
 }
 
 const Filters: FC<FiltersProps> = ({ filter, className, onFilterChange }) => {
@@ -56,24 +39,24 @@ const Filters: FC<FiltersProps> = ({ filter, className, onFilterChange }) => {
         onChange={handleSearchChange}
       />
       <Group gap={5} wrap="nowrap">
-        <FilterButton
+        <FilterStatusButton
           isActive={status === FilterStatusEnum.ALL}
           onClick={() => handleCompletedFilter(FilterStatusEnum.ALL)}
         >
           All
-        </FilterButton>
-        <FilterButton
+        </FilterStatusButton>
+        <FilterStatusButton
           isActive={status === FilterStatusEnum.COMPLETED}
           onClick={() => handleCompletedFilter(FilterStatusEnum.COMPLETED)}
         >
           Completed
-        </FilterButton>
-        <FilterButton
+        </FilterStatusButton>
+        <FilterStatusButton
           isActive={status === FilterStatusEnum.UNCOMPLETED}
           onClick={() => handleCompletedFilter(FilterStatusEnum.UNCOMPLETED)}
         >
           Uncompleted
-        </FilterButton>
+        </FilterStatusButton>
       </Group>
     </Group>
   )
