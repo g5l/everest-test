@@ -11,7 +11,7 @@ type UnknownTodoEntry = {
 
 export const getTodos = async (): Promise<TodoList> => {
   let storedTodos = localStorage.getItem(LOCAL_STORAGE_KEY)
-  storedTodos = JSON.parse(storedTodos)
+  storedTodos = JSON.parse(storedTodos) || []
   if (storedTodos.length > 0) return storedTodos
 
   const response = await fetchTodos()

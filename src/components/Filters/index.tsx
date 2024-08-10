@@ -52,6 +52,7 @@ const Filters: FC<FiltersProps> = ({ filter, className, onFilterChange }) => {
         value={search}
         className={styles.search}
         leftSection={<IconSearch size={18} />}
+        data-test="search-input"
         onChange={handleSearchChange}
       />
       <Group gap={5} wrap="nowrap">

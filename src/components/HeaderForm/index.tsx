@@ -30,9 +30,10 @@ const HeaderForm: FC<HeaderFormProps> = ({ onAdd }) => {
         onChange={handleInputChange}
         placeholder="Add a new todo"
         required
+        data-test="new-todo-input"
         className={styles.input}
       />
-      <Button type="submit" disabled={isEmpty}>
+      <Button type="submit" disabled={isEmpty} data-test="add-todo-button">
         ADD
       </Button>
     </form>

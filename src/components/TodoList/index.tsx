@@ -47,12 +47,10 @@ const TodoList: FC<TodoListProps> = ({
       <Center>
         <Container>
           <Stack align="center">
-            <Text size="xl" weight={500}>
-              No tasks yet
+            <Text size="xl" weight={500} data-test="empty-state">
+              No tasks found
             </Text>
-            <Text align="center">
-              You have no tasks in your to-do list. Add a task to get started!
-            </Text>
+            <Text align="center">You have no tasks in your to-do list.</Text>
           </Stack>
         </Container>
       </Center>
@@ -103,7 +101,10 @@ const TodoList: FC<TodoListProps> = ({
               checked={todo.checked}
               onChange={() => toggleTodo(todo.id)}
               label={
-                <Text className={todo.checked ? styles.checked : ''}>
+                <Text
+                  className={todo.checked ? styles.checked : ''}
+                  data-test="todo-item"
+                >
                   {todo.content}
                 </Text>
               }
